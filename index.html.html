@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0"/>
+<title>Kite School Porto Pollo – Paco & Virgi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--navy:#0a2540;--blue:#0e4a7a;--cyan:#00c8d4;--cyan2:#009fb0;--sand:#fdf8f2;--sand2:#f0ebe3;--gold:#f5c430;--white:#fff;--text:#1a2535;--muted:#556070;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',system-ui,sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;-webkit-text-size-adjust:100%;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:background .4s;}
+nav.scrolled{background:rgba(10,37,64,.95);backdrop-filter:blur(14px);}
+.logo{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.55rem;color:#fff;letter-spacing:2px;text-decoration:none;flex-shrink:0;}
+.logo em{color:var(--cyan);font-style:normal;}
+.nav-links{display:flex;gap:1.6rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.88);text-decoration:none;font-weight:500;font-size:.86rem;transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-right{display:flex;align-items:center;gap:.7rem;flex-shrink:0;}
+.nav-cta{background:var(--cyan);color:var(--navy);padding:.5rem 1.2rem;border-radius:50px;font-weight:700;font-size:.83rem;text-decoration:none;white-space:nowrap;}
+.nav-cta:hover{background:#00e8f8;}
+.lang-sw{display:flex;align-items:center;gap:.2rem;}
+.lbtn{background:none;border:2px solid transparent;cursor:pointer;padding:.12rem;border-radius:4px;opacity:.5;transition:opacity .2s,border-color .2s,transform .15s;display:flex;align-items:center;}
+.lbtn img{display:block;width:22px;height:15px;object-fit:cover;border-radius:2px;}
+.lbtn:hover{opacity:.95;transform:scale(1.08);}
+.lbtn.on{opacity:1;border-color:rgba(255,255,255,.7);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(10,37,64,.97);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mob-menu.open{display:flex;}
+.mob-menu a{color:#fff;font-size:1.4rem;text-decoration:none;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;}
+.mob-langs{display:flex;gap:.5rem;margin-top:.5rem;}
+.mob-langs .lbtn{opacity:.5;}
+.mob-langs .lbtn img{width:28px;height:19px;}
+.mob-langs .lbtn.on{opacity:1;}
+
+/* HERO */
+.hero{height:100vh;min-height:500px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
+.hero-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&w=1920&q=85') center/cover no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,20,40,.55) 0%,rgba(5,20,40,.25) 50%,rgba(5,20,40,.7) 100%);}
+.hero-wave{position:absolute;bottom:-1px;left:0;right:0;height:80px;background:var(--white);clip-path:ellipse(55% 100% at 50% 100%);}
+.hero-content{position:relative;z-index:2;max-width:820px;padding:1.5rem;}
+.hero-badge{display:inline-block;background:rgba(0,200,212,.18);border:1px solid rgba(0,200,212,.5);color:var(--cyan);padding:.35rem 1rem;border-radius:50px;font-size:.78rem;letter-spacing:2.5px;font-weight:700;text-transform:uppercase;margin-bottom:1.2rem;}
+h1.hero-title{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(3rem,10vw,7.5rem);color:#fff;line-height:.92;letter-spacing:3px;margin-bottom:1rem;}
+h1.hero-title em{color:var(--cyan);font-style:normal;}
+.hero-sub{font-size:clamp(.9rem,2vw,1.1rem);color:rgba(255,255,255,.82);max-width:540px;margin:0 auto 2rem;line-height:1.7;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-main{background:var(--cyan);color:var(--navy);padding:.85rem 2rem;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;display:inline-block;transition:all .2s;}
+.btn-main:hover{background:#00e8f8;transform:translateY(-2px);}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;padding:.85rem 2rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;border:1.5px solid rgba(255,255,255,.45);display:inline-block;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-top:3rem;flex-wrap:wrap;}
+.hstat strong{display:block;font-family:'Bebas Neue',Impact,sans-serif;font-size:2.6rem;color:var(--cyan);line-height:1;}
+.hstat span{font-size:.75rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:2px;}
+
+/* LAYOUT */
+section{padding:5rem 1.5rem;}
+.wrap{max-width:1200px;margin:0 auto;}
+.sl{font-size:.75rem;color:var(--cyan2);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:.5rem;}
+.st{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(2.4rem,5.5vw,4rem);color:var(--navy);line-height:.98;letter-spacing:1px;margin-bottom:1rem;}
+.ss{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.75;}
+
+/* ════════════════════════════
+   COURSE CARDS — equal height
+════════════════════════════ */
+.courses{background:var(--white);}
+.c-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);   /* 3 cols desktop */
+  gap:1.4rem;
+  margin-top:2.5rem;
+  align-items:stretch;                   /* all rows stretch to tallest */
+}
+.c-card{
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 4px 26px rgba(10,37,64,.10);
+  transition:transform .3s,box-shadow .3s;
+  display:flex;
+  flex-direction:column;                 /* photo + body stack vertically */
+}
+.c-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(10,37,64,.15);}
+
+/* photo — fixed height, pill top-right, title always at bottom */
+.c-photo{
+  height:200px;
+  flex-shrink:0;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+}
+.c-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(5,15,35,.82) 0%,rgba(5,15,35,.05) 55%);}
+.c-pill{position:absolute;top:.8rem;right:.8rem;z-index:3;font-size:.67rem;font-weight:700;padding:.2rem .62rem;border-radius:50px;}
+.pill-c{background:var(--cyan);color:var(--navy);}
+.pill-g{background:var(--gold);color:var(--navy);}
+.c-title-wrap{position:absolute;bottom:.85rem;left:1.1rem;right:1.1rem;z-index:2;}
+.c-title-wrap h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.65rem;letter-spacing:1px;line-height:1;color:#fff;}
+
+/* body — flex column so footer always at bottom */
+.c-body{
+  padding:1.2rem 1.3rem;
+  flex:1;                                /* grow to fill remaining card height */
+  display:flex;
+  flex-direction:column;
+}
+.c-desc{font-size:.87rem;color:var(--muted);line-height:1.6;margin-bottom:.9rem;}
+.c-meta{display:flex;gap:.6rem;font-size:.76rem;color:#8899aa;flex-wrap:wrap;margin-bottom:.9rem;}
+
+/* price + buttons always pinned to bottom */
+.c-foot{
+  margin-top:auto;                       /* push to bottom regardless of desc length */
+  padding-top:.85rem;
+  border-top:1px solid #edf2f7;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+.c-pm{font-family:'Bebas Neue',Impact,sans-serif;font-size:2rem;color:var(--blue);letter-spacing:1px;line-height:1;}
+.c-ps{font-size:.7rem;color:var(--muted);margin-top:1px;}
+.c-acts{display:flex;gap:.5rem;}
+.bdet{flex:1;background:transparent;border:1.5px solid var(--cyan2);color:var(--cyan2);padding:.46rem .6rem;border-radius:50px;font-size:.77rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;text-align:center;}
+.bdet:hover,.bdet.on{background:var(--cyan);border-color:var(--cyan);color:var(--navy);}
+.bbk{flex:1;background:var(--navy);color:#fff;padding:.46rem .6rem;border-radius:50px;font-size:.77rem;font-weight:600;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.bbk:hover{background:var(--blue);}
+
+/* detail panel */
+.cdet{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .4s;background:linear-gradient(135deg,#f0f8ff,#e8f5ff);border-top:2px solid var(--cyan);}
+.cdet.open{max-height:600px;opacity:1;}
+.cdet-in{padding:1.2rem 1.3rem;}
+.cdet-in h4{font-family:'Bebas Neue',Impact,sans-serif;font-size:.95rem;color:var(--navy);letter-spacing:1px;margin-bottom:.6rem;}
+.inc-list{display:flex;flex-wrap:wrap;gap:.35rem .8rem;margin-bottom:.85rem;}
+.inc{display:flex;align-items:center;gap:.35rem;font-size:.77rem;color:var(--navy);}
+.inc::before{content:'✓';color:var(--cyan);font-weight:700;}
+.pn{font-size:.71rem;color:var(--muted);margin-top:.4rem;}
+.det-steps{display:flex;flex-direction:column;gap:.45rem;margin-bottom:.8rem;}
+.det-step{background:#fff;border-radius:9px;padding:.55rem .85rem;border-left:3px solid var(--cyan);}
+.det-h{font-size:.67rem;font-weight:700;color:var(--cyan2);text-transform:uppercase;letter-spacing:1px;margin-bottom:.12rem;}
+.det-t{font-size:.77rem;color:var(--muted);line-height:1.5;}
+.det-goal{background:rgba(0,200,212,.07);border:1px solid rgba(0,200,212,.25);border-radius:9px;padding:.6rem .85rem;font-size:.78rem;color:var(--navy);line-height:1.55;margin-bottom:.5rem;}
+
+/* PHOTO STRIP */
+.photo-strip{display:grid;grid-template-columns:repeat(6,1fr);height:220px;}
+.sp{background-size:cover;background-position:center;position:relative;cursor:pointer;}
+.sp::after{content:'';position:absolute;inset:0;background:rgba(5,20,45,.2);transition:background .3s;}
+.sp:hover::after{background:rgba(5,20,45,.02);}
+
+/* ABOUT */
+.about{background:var(--sand);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.aimg-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;height:440px;}
+.aimg{border-radius:14px;background-size:cover;background-position:center;}
+.aimg.big{grid-row:1/3;border-radius:18px;}
+.about-text p{color:var(--muted);line-height:1.8;font-size:.96rem;margin-bottom:.85rem;}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.5rem;}
+.perk{background:#fff;border-radius:13px;padding:.9rem 1rem;border:1px solid #e4ecf4;}
+.pik{font-size:1.2rem;margin-bottom:.28rem;}
+.perk h4{font-size:.86rem;font-weight:700;color:var(--navy);margin-bottom:.1rem;}
+.perk p{font-size:.76rem;color:var(--muted);}
+
+/* EXP */
+.exp{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+.exp::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=70') center/cover;opacity:.12;}
+.exp .sl{color:var(--cyan);}
+.exp .st{color:#fff;}
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.ecard{background:rgba(255,255,255,.07);border:1px solid rgba(0,200,212,.22);border-radius:17px;padding:1.6rem 1.3rem;transition:all .3s;position:relative;color:inherit;display:block;text-decoration:none;}
+.ecard:hover{background:rgba(0,200,212,.1);border-color:rgba(0,200,212,.5);}
+.ecard.lnk::after{content:'↗';position:absolute;top:.9rem;right:.9rem;font-size:.8rem;color:var(--cyan);opacity:.7;}
+.eic{font-size:2rem;margin-bottom:.8rem;}
+.ecard h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.35rem;letter-spacing:1px;color:var(--cyan);margin-bottom:.4rem;}
+.ecard p{font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.6;}
+
+/* REVIEWS */
+.reviews{background:var(--white);}
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.5rem;}
+.rc{background:var(--sand);border-radius:18px;padding:1.5rem;}
+.stars{color:var(--gold);font-size:.86rem;letter-spacing:2px;margin-bottom:.6rem;}
+.rc p{font-size:.9rem;color:#445;line-height:1.7;font-style:italic;margin-bottom:1rem;}
+.rauth{display:flex;align-items:center;gap:.7rem;}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),#005f80);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:.8rem;}
+.rauth div strong{display:block;font-size:.86rem;color:var(--navy);}
+.rauth div span{font-size:.74rem;color:var(--muted);}
+
+/* BANNER */
+.banner{height:380px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
+.bph{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1920&q=85') center/cover;}
+.bov{position:absolute;inset:0;background:rgba(5,20,45,.52);}
+.bc{position:relative;z-index:2;color:#fff;max-width:680px;padding:1.5rem;}
+.bc .st{color:#fff;font-size:clamp(1.9rem,4.5vw,3.2rem);}
+.bc p{color:rgba(255,255,255,.8);font-size:1rem;margin-top:.7rem;line-height:1.7;}
+
+/* LOCATION */
+.location{background:var(--navy);color:#fff;}
+.location .sl{color:var(--cyan);}
+.location .st{color:#fff;}
+.lg{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2.5rem;align-items:start;}
+.citems{display:flex;flex-direction:column;gap:1.3rem;}
+.ci{display:flex;gap:1rem;align-items:flex-start;}
+.cic{width:44px;height:44px;min-width:44px;border-radius:12px;background:rgba(0,200,212,.15);border:1px solid rgba(0,200,212,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.ci h4{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:.28rem;}
+.ci p{font-size:.92rem;color:#fff;font-weight:500;line-height:1.5;}
+.ci a{color:var(--cyan);text-decoration:none;font-size:.9rem;font-weight:500;}
+.rbox{border-radius:18px;overflow:hidden;background:rgba(255,255,255,.05);border:1px solid rgba(0,200,212,.2);}
+.rmap{height:200px;}
+.rmap iframe{width:100%;height:100%;border:none;}
+.rbody{padding:1.1rem 1.3rem;}
+.rbody h4{font-family:'Bebas Neue',Impact,sans-serif;font-size:1rem;color:var(--cyan);letter-spacing:1px;margin-bottom:.7rem;}
+.rsteps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.85rem;}
+.rstep{display:flex;gap:.7rem;align-items:flex-start;}
+.rn{width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--cyan);color:var(--navy);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:.1rem;}
+.rstep p{font-size:.79rem;color:rgba(255,255,255,.72);line-height:1.5;}
+.cbar{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(0,200,212,.08);border-radius:9px;border:1px solid rgba(0,200,212,.2);}
+.cbar span{font-size:.75rem;color:var(--cyan);font-family:monospace;font-weight:600;}
+.cbar a{font-size:.72rem;color:rgba(255,255,255,.55);text-decoration:none;margin-left:auto;white-space:nowrap;}
+.cbar a:hover{color:var(--cyan);}
+
+/* BOOKING */
+.booking{background:linear-gradient(135deg,#061830,#0a3a55);color:#fff;text-align:center;}
+.booking .st{color:#fff;}.booking .sl{color:var(--cyan);}
+.booking .ss{color:rgba(255,255,255,.65);margin:0 auto 2rem;}
+.bform{background:rgba(255,255,255,.07);border:1px solid rgba(0,200,212,.2);border-radius:22px;padding:2.2rem;max-width:620px;margin:0 auto;text-align:left;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem;}
+.fg{display:flex;flex-direction:column;gap:.3rem;}
+.fg label{font-size:.78rem;color:rgba(255,255,255,.58);font-weight:500;}
+.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.08);border:1px solid rgba(0,200,212,.22);border-radius:10px;padding:.68rem .95rem;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;width:100%;}
+.fg input::placeholder{color:rgba(255,255,255,.35);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--cyan);}
+.fg select option{background:#0a2540;}
+.ffull{grid-column:1/-1;}
+.fsub{width:100%;background:var(--cyan);color:var(--navy);padding:.95rem;border-radius:50px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;margin-top:.7rem;font-family:'Outfit',sans-serif;transition:all .2s;}
+.fsub:hover{background:#00e8f8;transform:translateY(-1px);}
+
+/* INSTAGRAM */
+.igsec{background:var(--sand2);text-align:center;padding:4.5rem 1.5rem;}
+.igg{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;max-width:840px;margin:2rem auto;border-radius:14px;overflow:hidden;}
+.igt{aspect-ratio:1;background-size:cover;background-position:center;position:relative;overflow:hidden;cursor:pointer;}
+.igt::after{content:'';position:absolute;inset:0;background:rgba(5,20,45,.18);transition:background .3s;}
+.igt:hover::after{background:rgba(5,20,45,0);}
+.igbtn{display:inline-flex;align-items:center;gap:.55rem;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;padding:.8rem 1.8rem;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+.igbtn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(253,29,29,.35);}
+
+footer{background:var(--navy);color:rgba(255,255,255,.52);padding:2.5rem 1.5rem;text-align:center;}
+.flogo{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.9rem;color:#fff;letter-spacing:2px;margin-bottom:.45rem;}
+.flogo em{color:var(--cyan);font-style:normal;}
+.flinks{display:flex;gap:1.6rem;justify-content:center;flex-wrap:wrap;margin:1.3rem 0;}
+.flinks a{color:rgba(255,255,255,.52);text-decoration:none;font-size:.82rem;transition:color .2s;}
+.flinks a:hover{color:var(--cyan);}
+footer hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin:1.3rem 0;}
+
+/* REVEAL */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.js .reveal.v{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.c-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:860px){
+  nav{padding:.85rem 1.1rem;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .lang-sw{display:none;}
+}
+@media(max-width:700px){
+  section{padding:4rem 1.1rem;}
+  .c-grid{grid-template-columns:1fr;}
+  .about-grid,.lg{grid-template-columns:1fr;}
+  .aimg-grid{height:260px;}
+  .frow,.perks{grid-template-columns:1fr;}
+  .photo-strip{grid-template-columns:repeat(3,1fr);height:180px;}
+  .igg{grid-template-columns:repeat(3,1fr);}
+  .bph{background-attachment:scroll;}
+}
+@media(max-width:400px){h1.hero-title{font-size:2.8rem;}.c-pm{font-size:1.7rem;}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="logo" href="#"><em>KITE</em> SCHOOL</a>
+  <ul class="nav-links">
+    <li><a href="#corsi" data-i18n="n-cor">Corsi</a></li>
+    <li><a href="#about" data-i18n="n-abo">Chi Siamo</a></li>
+    <li><a href="#dove" data-i18n="n-dov">Dove Siamo</a></li>
+    <li><a href="#recensioni" data-i18n="n-rec">Recensioni</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="nav-cta" href="#prenota" data-i18n="n-cta">Prenota Ora</a>
+    <div class="lang-sw">
+      <button class="lbtn on" onclick="setLang('it')" id="lb-it" title="Italiano"><img src="https://flagcdn.com/24x18/it.png" alt="IT"/></button>
+      <button class="lbtn" onclick="setLang('en')" id="lb-en" title="English"><img src="https://flagcdn.com/24x18/gb.png" alt="EN"/></button>
+      <button class="lbtn" onclick="setLang('de')" id="lb-de" title="Deutsch"><img src="https://flagcdn.com/24x18/de.png" alt="DE"/></button>
+      <button class="lbtn" onclick="setLang('fr')" id="lb-fr" title="Français"><img src="https://flagcdn.com/24x18/fr.png" alt="FR"/></button>
+      <button class="lbtn" onclick="setLang('es')" id="lb-es" title="Español"><img src="https://flagcdn.com/24x18/es.png" alt="ES"/></button>
+    </div>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-menu" id="mob">
+  <a href="#corsi" onclick="toggleNav()" data-i18n="n-cor">Corsi</a>
+  <a href="#about" onclick="toggleNav()" data-i18n="n-abo">Chi Siamo</a>
+  <a href="#dove" onclick="toggleNav()" data-i18n="n-dov">Dove Siamo</a>
+  <a href="#recensioni" onclick="toggleNav()" data-i18n="n-rec">Recensioni</a>
+  <a href="#prenota" onclick="toggleNav()" style="color:var(--cyan)" data-i18n="n-cta">Prenota Ora</a>
+  <div class="mob-langs">
+    <button class="lbtn on" onclick="setLang('it');toggleNav()" id="mlb-it"><img src="https://flagcdn.com/24x18/it.png" alt="IT"/></button>
+    <button class="lbtn" onclick="setLang('en');toggleNav()" id="mlb-en"><img src="https://flagcdn.com/24x18/gb.png" alt="EN"/></button>
+    <button class="lbtn" onclick="setLang('de');toggleNav()" id="mlb-de"><img src="https://flagcdn.com/24x18/de.png" alt="DE"/></button>
+    <button class="lbtn" onclick="setLang('fr');toggleNav()" id="mlb-fr"><img src="https://flagcdn.com/24x18/fr.png" alt="FR"/></button>
+    <button class="lbtn" onclick="setLang('es');toggleNav()" id="mlb-es"><img src="https://flagcdn.com/24x18/es.png" alt="ES"/></button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-photo"></div><div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🪁 Porto Pollo · Sardegna</div>
+    <h1 class="hero-title" data-i18n-html="h-tit">VOLA LIBERO<br/>CON IL <em>VENTO</em></h1>
+    <p class="hero-sub" data-i18n="h-sub">La scuola di kitesurf di Paco e Virgi a Porto Pollo. Corsi per tutti i livelli, istruttori certificati FIV/VDWS/IKO, attrezzatura Flysurfer inclusa.</p>
+    <div class="hero-btns">
+      <a class="btn-main" href="#corsi" data-i18n="h-bc">Scopri i Corsi</a>
+      <a class="btn-ghost" href="#about" data-i18n="h-ba">Chi Siamo</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><strong>5000+</strong><span data-i18n="s-stu">Allievi Formati</span></div>
+      <div class="hstat"><strong>25+</strong><span data-i18n="s-yrs">Anni di Esperienza</span></div>
+      <div class="hstat"><strong>★ 4.9</strong><span data-i18n="s-rat">Rating Clienti</span></div>
+    </div>
+  </div>
+  <div class="hero-wave"></div>
+</section>
+
+<!-- CORSI -->
+<section class="courses" id="corsi">
+  <div class="wrap">
+    <p class="sl reveal" data-i18n="c-lbl">I Nostri Corsi</p>
+    <h2 class="st reveal" data-i18n-html="c-tit">SCEGLI LA TUA<br/>AVVENTURA</h2>
+    <p class="ss reveal" data-i18n="c-sub">Dalla prima volta assoluta al freestyle avanzato. Istruttori certificati, attrezzatura Flysurfer e gommone inclusi.</p>
+
+    <div class="c-grid">
+
+      <!-- DISCOVERY -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317330/WhatsApp_Image_2026-04-04_at_17.31.14_2_q0exvm.jpg');">
+          <span class="c-pill pill-c" data-i18n="d1-pil">Prima Volta</span>
+          <div class="c-title-wrap"><h3 data-i18n="d1-nam">Corso Discovery</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d1-des">Scopri se il kitesurf fa per te! In 3 ore sperimenterai le prime emozioni: teoria, kite a terra e prime manovre in acqua.</p>
+          <div class="c-meta"><span data-i18n="d1-m1">⏱ 3 ore</span><span data-i18n="m-ind">👤 Individuale</span><span>🎓 FIV/IKO</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm">€ 180</span><div class="c-ps" data-i18n="d1-ps">3 ore · €80 ora singola</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d1',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d1"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="i3">Tavola Flysurfer</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">1ª Ora</div><div class="det-t">Introduzione al kitesurf: teoria delle basi e prime manovre con il trainer kite per imparare a gestire barra e vela.</div></div>
+            <div class="det-step"><div class="det-h">2ª Ora</div><div class="det-t">Controllo del kite a terra: montaggio, gonfiaggio, tecniche di lancio e atterraggio assistito, pilotaggio in spiaggia.</div></div>
+            <div class="det-step"><div class="det-h">3ª Ora</div><div class="det-t">Prime manovre in acqua senza tavola: body drag sottovento per imparare a muoversi col kite e simulazione recupero tavola.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Acquisire controllo e sicurezza nel pilotaggio del kite — base fondamentale per proseguire con il waterstart e la navigazione.</div>
+          <p class="pn">Età minima 9 anni · Corso individuale · 3 ore €180 · 1 ora €80</p>
+        </div></div>
+      </div>
+
+      <!-- PRINCIPIANTI -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317320/WhatsApp_Image_2026-04-04_at_17.31.06_4_ycfqgd.jpg');">
+          <span class="c-pill pill-c" data-i18n="d2-pil">Più Scelto</span>
+          <div class="c-title-wrap"><h3 data-i18n="d2-nam">Corso Principianti</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d2-des">Il corso completo per partire da zero. 6 ore per imparare teoria, body drag e i primi water start in totale sicurezza.</p>
+          <div class="c-meta"><span data-i18n="d2-m1">⏱ 6 ore</span><span data-i18n="m-ind">👤 Individuale</span><span>🎓 FIV/IKO</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm">€ 360</span><div class="c-ps" data-i18n="d2-ps">6 ore · promo (anziché €420)</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d2',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d2"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="i3">Tavola Flysurfer</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">Step 1 — Spiaggia (2 ore)</div><div class="det-t">Teoria + trainer kite a 4 linee. Poi montaggio e gonfiaggio kite vero, lancio/atterraggio assistito e prime manovre a terra.</div></div>
+            <div class="det-step"><div class="det-h">Step 2 — Body Drag (2 ore)</div><div class="det-t">Body drag in tandem con l'istruttore collegato al trapezio, per acquisire controllo in acqua. Poi body drag autonomo guidato via radio casco.</div></div>
+            <div class="det-step"><div class="det-h">Step 3 — Water Start (2 ore)</div><div class="det-t">Beach start assistito in tandem per capire posizione e movimento. Poi water start autonomo: dall'acqua alla planata sulle onde.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Partire in autonomia con il kite e iniziare a planare sull'acqua in sicurezza, con un istruttore sempre presente via radio.</div>
+          <p class="pn">Età minima 9 anni · 6 ore €360 (promo, anziché €420) · 1 ora €80</p>
+        </div></div>
+      </div>
+
+      <!-- INTERMEDIO -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317329/WhatsApp_Image_2026-04-04_at_17.31.14_1_mioqsb.jpg');">
+          <div class="c-title-wrap"><h3 data-i18n="d3-nam">Corso Intermedio</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d3-des">Sai già partire in autonomia? Perfeziona planata, cambi di direzione e impara a bolinare con tecnica reale.</p>
+          <div class="c-meta"><span data-i18n="d3-m1">⏱ 2–6 ore</span><span data-i18n="m-grp">👤 1–4 persone</span><span data-i18n="d3-m3">🏄 Personalizzato</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm" data-i18n="d3-pm">da € 140</span><div class="c-ps" data-i18n="d3-ps">€70/h · 2/4/6 ore disponibili</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d3',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d3"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="i3">Tavola Flysurfer</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">Waterstart perfetto</div><div class="det-t">Perfezionare la partenza dall'acqua con coordinazione kite–tavola ottimizzata e piena autonomia.</div></div>
+            <div class="det-step"><div class="det-h">Bolina & direzione</div><div class="det-t">Mantenere la bolina, risalire il vento, gestire velocità e direzione con sicurezza e fluidità.</div></div>
+            <div class="det-step"><div class="det-h">Manovre evolute</div><div class="det-t">Virate, transizioni di base e prime manovre più complesse per navigare con stile e controllo.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Diventare un kiter indipendente capace di navigare in sicurezza e con tecnica reale, pronto ad affrontare qualsiasi condizione di vento.</div>
+          <p class="pn">Prerequisito: saper partire in autonomia · 2 ore €120 · 4 ore €240 · 6 ore €360</p>
+        </div></div>
+      </div>
+
+      <!-- AVANZATO -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317359/WhatsApp_Image_2026-04-04_at_17.35.09_fbq22w.jpg');">
+          <span class="c-pill pill-g" data-i18n="d4-pil">Pro Level</span>
+          <div class="c-title-wrap"><h3 data-i18n="d4-nam">Corso Avanzato</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d4-des">Salti, transizioni avanzate e navigazione in condizioni impegnative. Costruisci il tuo stile sotto la guida di Paco e Virgi.</p>
+          <div class="c-meta"><span data-i18n="d3-m1">⏱ 2–6 ore</span><span data-i18n="m-grp">👤 1–4 persone</span><span data-i18n="d4-m3">🎬 Coaching avanzato</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm" data-i18n="d3-pm">da € 140</span><div class="c-ps" data-i18n="d3-ps">€70/h · 2/4/6 ore disponibili</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d4',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d4"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="i3">Tavola Flysurfer</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">Salti & atterraggi</div><div class="det-t">Salti controllati con atterraggi morbidi, gestione del kite in aria e correzione della traiettoria.</div></div>
+            <div class="det-step"><div class="det-h">Transizioni avanzate</div><div class="det-t">Manovre in switch, toeside e introduzione al freestyle con i primi trick personalizzati.</div></div>
+            <div class="det-step"><div class="det-h">Vento forte & variabile</div><div class="det-t">Navigazione sicura in condizioni impegnative, gestione raffiche e cambi rapidi di direzione.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Più controllo, più stile, più libertà. Affinare ogni dettaglio del riding con correzioni in tempo reale via radio e supporto tecnico personalizzato.</div>
+          <p class="pn">Prerequisito: navigare in autonomia · 2 ore €120 · 4 ore €240 · 6 ore €360</p>
+        </div></div>
+      </div>
+
+      <!-- FOIL -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317319/WhatsApp_Image_2026-04-04_at_17.31.06_2_iarx1s.jpg');">
+          <span class="c-pill pill-g" data-i18n="d5-pil">Foil</span>
+          <div class="c-title-wrap"><h3 data-i18n="d5-nam">Corso Foil</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d5-des">Impara a volare sull'acqua con il hydrofoil. Un'esperienza unica per rider già autonomi che vogliono scoprire la nuova frontiera del kitesurf.</p>
+          <div class="c-meta"><span data-i18n="d3-m1">⏱ 2–6 ore</span><span data-i18n="m-grp">👤 1–4 persone</span><span data-i18n="d5-m3">🚀 Hydrofoil</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm" data-i18n="d3-pm">da € 140</span><div class="c-ps" data-i18n="d3-ps">€70/h · 2/4/6 ore disponibili</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d5',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d5"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="d5-i3">Tavola Foil</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">Gestione del foil</div><div class="det-t">Familiarizzare con la tavola foil: equilibrio, posizione del corpo e sensazioni completamente diverse dal kite tradizionale.</div></div>
+            <div class="det-step"><div class="det-h">Partenza & decollo</div><div class="det-t">Tecniche di waterstart con il foil e primi "decolli" sull'acqua: imparare a far alzare il foil in modo controllato.</div></div>
+            <div class="det-step"><div class="det-h">Volo sopra l'acqua</div><div class="det-t">Mantenere l'altezza di volo, gestire la velocità e tornare in acqua in sicurezza. Un'esperienza unica e silenziosa.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Imparare a volare letteralmente sopra l'acqua con il hydrofoil, scoprendo la nuova frontiera del kitesurf in totale sicurezza con istruttori esperti.</div>
+          <p class="pn">Prerequisito: saper navigare in autonomia · 2 ore €120 · 4 ore €240 · 6 ore €360</p>
+        </div></div>
+      </div>
+
+      <!-- FREESTYLE -->
+      <div class="c-card reveal">
+        <div class="c-photo" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317321/WhatsApp_Image_2026-04-04_at_17.31.07_ihozpl.jpg');">
+          <span class="c-pill pill-g" data-i18n="d6-pil">Freestyle</span>
+          <div class="c-title-wrap"><h3 data-i18n="d6-nam">Corso Freestyle</h3></div>
+        </div>
+        <div class="c-body">
+          <p class="c-desc" data-i18n="d6-des">Salti, rotazioni e trick spettacolari. Il corso freestyle è pensato per rider esperti che vogliono portare il proprio kite al livello successivo.</p>
+          <div class="c-meta"><span data-i18n="d3-m1">⏱ 2–6 ore</span><span data-i18n="m-grp">👤 1–4 persone</span><span data-i18n="d6-m3">🎯 Trick & Jump</span></div>
+          <div class="c-foot">
+            <div><span class="c-pm" data-i18n="d3-pm">da € 140</span><div class="c-ps" data-i18n="d3-ps">€70/h · 2/4/6 ore disponibili</div></div>
+            <div class="c-acts">
+              <button class="bdet" onclick="det('d6',this)"><span data-i18n="b-det">Dettagli</span> ▾</button>
+              <a class="bbk" href="#prenota" data-i18n="b-bk">Prenota</a>
+            </div>
+          </div>
+        </div>
+        <div class="cdet" id="det-d6"><div class="cdet-in">
+          <h4 data-i18n="x-inc">✦ Cosa è incluso</h4>
+          <div class="inc-list">
+            <span class="inc" data-i18n="i1">Istruttore privato</span><span class="inc">Kite Flysurfer</span>
+            <span class="inc" data-i18n="i2">Trapezio</span><span class="inc" data-i18n="i3">Tavola Flysurfer</span>
+            <span class="inc" data-i18n="i4">Giubbotto salvagente</span><span class="inc" data-i18n="i5">Barra + linee</span>
+            <span class="inc" data-i18n="i6">Radio casco</span><span class="inc" data-i18n="i7">Gommone assistenza</span>
+          </div>
+          <h4 style="margin-top:.7rem">✦ Cosa imparerai</h4>
+          <div class="det-steps">
+            <div class="det-step"><div class="det-h">Salti progressivi</div><div class="det-t">Salti sempre più alti e controllati: dalla gestione del loop di kite ai first jumps con atterraggi puliti.</div></div>
+            <div class="det-step"><div class="det-h">Trick & rotazioni</div><div class="det-t">Rotazioni corpo, grab in aria e primi trick unhooked per sviluppare uno stile freestyle personale.</div></div>
+            <div class="det-step"><div class="det-h">Riding avanzato</div><div class="det-t">Toeside, switch e manovre unhooked: tecniche per portare il proprio riding a un livello competitivo.</div></div>
+          </div>
+          <div class="det-goal"><strong>🎯 Obiettivo del corso:</strong> Sviluppare un repertorio di trick personali e portare il proprio stile freestyle al livello successivo, con coaching avanzato e correzioni in tempo reale.</div>
+          <p class="pn">Prerequisito: rider esperto con buona padronanza del kite · 2 ore €120 · 4 ore €240 · 6 ore €360</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="photo-strip">
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317330/WhatsApp_Image_2026-04-04_at_17.31.14_2_q0exvm.jpg');"></div>
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317320/WhatsApp_Image_2026-04-04_at_17.31.06_4_ycfqgd.jpg');"></div>
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317321/WhatsApp_Image_2026-04-04_at_17.31.07_ihozpl.jpg');"></div>
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317359/WhatsApp_Image_2026-04-04_at_17.35.09_fbq22w.jpg');"></div>
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317329/WhatsApp_Image_2026-04-04_at_17.31.14_1_mioqsb.jpg');"></div>
+  <div class="sp" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317319/WhatsApp_Image_2026-04-04_at_17.31.06_2_iarx1s.jpg');"></div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap"><div class="about-grid">
+    <div class="aimg-grid reveal">
+      <div class="aimg big" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317359/WhatsApp_Image_2026-04-04_at_17.35.09_fbq22w.jpg');"></div>
+      <div class="aimg" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317329/WhatsApp_Image_2026-04-04_at_17.31.14_1_mioqsb.jpg');"></div>
+      <div class="aimg" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317319/WhatsApp_Image_2026-04-04_at_17.31.06_2_iarx1s.jpg');"></div>
+    </div>
+    <div class="about-text reveal">
+      <p class="sl" data-i18n="a-lbl">Chi Siamo</p>
+      <h2 class="st" data-i18n-html="a-tit">PASSIONE<br/>PURA</h2>
+      <p data-i18n="a-p1">Siamo Paco e Virgi, e il kite è la nostra vita. Da oltre 25 anni insegniamo a volare sulle acque cristalline di Porto Pollo, uno degli spot più ventosi e magici d'Italia.</p>
+      <p data-i18n-html="a-p2">La nostra reception è direttamente alla kite zone, sulla spiaggia. Cerca le vele in cielo: ci trovi! Vieni a trovarci <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(qui)</a>.</p>
+      <div class="perks">
+        <div class="perk"><div class="pik">🎓</div><h4 data-i18n="pk1t">Certificati FIV/IKO</h4><p data-i18n="pk1p">Standard internazionali</p></div>
+        <div class="perk"><div class="pik">🌬️</div><h4 data-i18n="pk2t">Vento Garantito</h4><p data-i18n="pk2p">Miglior spot del Mediterraneo</p></div>
+        <div class="perk"><div class="pik">🏄</div><h4>Flysurfer Equipment</h4><p data-i18n="pk3p">Ultima generazione inclusa</p></div>
+        <div class="perk"><div class="pik">🚤</div><h4 data-i18n="pk4t">Gommone Assistenza</h4><p data-i18n="pk4p">Sempre in acqua con te</p></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="exp">
+  <div class="wrap" style="position:relative;z-index:2;text-align:center;">
+    <p class="sl reveal" data-i18n="e-lbl">Perché Noi</p>
+    <h2 class="st reveal" data-i18n-html="e-tit">L'ESPERIENZA<br/>CHE FA LA DIFFERENZA</h2>
+    <div class="exp-grid">
+      <div class="ecard reveal"><div class="eic">🌊</div><h3 data-i18n="e1t">Spot Perfetto</h3><p data-i18n="e1p">Porto Pollo: acque piatte, vento costante, uno dei migliori spot kite del Mediterraneo.</p></div>
+      <a class="ecard lnk reveal" href="https://www.windfinder.com/forecast/sardinia_porto_pollo" target="_blank" rel="noopener"><div class="eic">📡</div><h3 data-i18n="e2t">Meteo Live</h3><p data-i18n="e2p">Clicca per le previsioni vento in tempo reale — powered by Windfinder.</p></a>
+      <div class="ecard reveal"><div class="eic">🎧</div><h3 data-i18n="e3t">Radio Casco</h3><p data-i18n="e3p">Comunicazione diretta istruttore–allievo in acqua per correzioni istantanee.</p></div>
+      <div class="ecard reveal"><div class="eic">🛡️</div><h3 data-i18n="e4t">Sicurezza Prima</h3><p data-i18n="e4p">Protocolli FIV/IKO. Gommone sempre presente. Età minima 9 anni.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="banner"><div class="bph"></div><div class="bov"></div>
+  <div class="bc">
+    <h2 class="st" data-i18n="bn-t">IL VENTO NON ASPETTA</h2>
+    <p data-i18n="bn-p">Ogni estate a Porto Pollo passa in un lampo. Prenota il tuo corso e vivi l'estate della tua vita.</p>
+    <br/><br/><a class="btn-main" href="#prenota" data-i18n="bn-b">Prenota Adesso</a>
+  </div>
+</div>
+
+<section class="reviews" id="recensioni">
+  <div class="wrap">
+    <p class="sl reveal" data-i18n="r-lbl">Cosa Dicono di Noi</p>
+    <h2 class="st reveal" data-i18n-html="r-tit">STORIE DI<br/>VOLO VERO</h2>
+    <div class="rg">
+      <div class="rc reveal"><div class="stars">★★★★★</div><p data-i18n="r1">"Arrivata senza mai aver toccato un kite, ripartita dopo il corso principianti con il sorriso stampato. Trovare la tenda direttamente in spiaggia è comodissimo!"</p><div class="rauth"><div class="av">GL</div><div><strong>Giulia L.</strong><span data-i18n="r1r">Milano · Principianti</span></div></div></div>
+      <div class="rc reveal"><div class="stars">★★★★★</div><p data-i18n="r2">"Il coaching con Virgi ha trasformato la mia tecnica. Radio casco, gommone vicino, istruttore sempre presente — professionalità eccezionale!"</p><div class="rauth"><div class="av">MR</div><div><strong>Marco R.</strong><span data-i18n="r2r">Roma · Avanzato</span></div></div></div>
+      <div class="rc reveal"><div class="stars">★★★★★</div><p data-i18n="r3">"Ho iniziato con il Discovery per curiosità e ho finito per fare il corso completo. Paco è un istruttore straordinario, ci tornerò l'estate prossima!"</p><div class="rauth"><div class="av">SF</div><div><strong>Sara F.</strong><span data-i18n="r3r">Torino · Discovery → Principianti</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="dove">
+  <div class="wrap">
+    <p class="sl reveal" data-i18n="l-lbl">Dove Trovarci</p>
+    <h2 class="st reveal" data-i18n-html="l-tit">VIENI A<br/>TROVARCI</h2>
+    <div class="lg">
+      <div class="citems reveal">
+        <div class="ci"><div class="cic">📍</div><div><h4 data-i18n="ci1t">Kite Zone — Spiaggia</h4><p>Isola dei Gabbiani, Porto Pollo<br/><span style="color:rgba(255,255,255,.45);font-size:.8rem;" data-i18n="ci1s">Reception alla kite zone</span></p></div></div>
+        <div class="ci"><div class="cic">📱</div><div><h4 data-i18n="ci2t">Chiamaci / WhatsApp</h4><a href="tel:+393382460327">+39 338 246 0327</a></div></div>
+        <div class="ci"><div class="cic">✉️</div><div><h4>Email</h4><a href="/cdn-cgi/l/email-protection#8be0e2ffeefbe4f9ffe4fbe4e7e7e4cbece6eae2e7a5e8e4e6"><span class="__cf_email__" data-cfemail="90fbf9e4f5e0ffe2e4ffe0fffcfcffd0f7fdf1f9fcbef3fffd">[email&#160;protected]</span></a></div></div>
+        <div class="ci"><div class="cic">☀️</div><div><h4 data-i18n="ci4t">Stagione</h4><p data-i18n="ci4p">Giugno – Settembre</p></div></div>
+      </div>
+      <div class="rbox reveal">
+        <div class="rmap"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=9.3041%2C41.1811%2C9.3241%2C41.2011&layer=mapnik&marker=41.191111%2C9.314167" allowfullscreen loading="lazy"></iframe></div>
+        <div class="rbody">
+          <h4 data-i18n="rh-t">✦ Come Raggiungerci</h4>
+          <div class="rsteps">
+            <div class="rstep"><div class="rn">1</div><p data-i18n="rh1">Raggiungi <strong>Palau (OT)</strong> — in traghetto da Olbia o in auto dalla SS133.</p></div>
+            <div class="rstep"><div class="rn">2</div><p data-i18n="rh2">Segui le indicazioni per <strong>Porto Pollo</strong> / Barrabisa — circa 8 km da Palau.</p></div>
+            <div class="rstep"><div class="rn">3</div><p data-i18n="rh3">Parcheggia all'<strong>Isola dei Gabbiani</strong> — la nostra tenda è alla kite zone.</p></div>
+          </div>
+          <div class="cbar"><span>41°11'28.0"N &nbsp;9°18'51.0"E</span><a href="https://maps.google.com/?q=41.191111,9.314167" target="_blank" data-i18n="rh-m">Apri in Google Maps →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="prenota">
+  <div class="wrap">
+    <p class="sl" data-i18n="bk-l">Prenota Ora</p>
+    <h2 class="st" data-i18n-html="bk-t">INIZIA A VOLARE<br/>QUEST'ESTATE</h2>
+    <p class="ss" data-i18n="bk-s">Compila il form e ti contatteremo entro 24h per confermare disponibilità e dettagli.</p>
+    <div class="bform reveal">
+      <div class="frow">
+        <div class="fg"><label data-i18n="f-nm">Nome</label><input type="text" id="fi-name" data-i18n-ph="f-nmph" placeholder="Il tuo nome"/></div>
+        <div class="fg"><label data-i18n="f-sn">Cognome</label><input type="text" id="fi-surn" data-i18n-ph="f-snph" placeholder="Il tuo cognome"/></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Email</label><input type="email" id="fi-email" placeholder="email@esempio.it"/></div>
+        <div class="fg"><label data-i18n="f-ph">Telefono / WhatsApp</label><input type="tel" id="fi-phone" placeholder="+39 ..."/></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label data-i18n="f-co">Corso</label>
+          <select id="fi-course">
+            <option data-i18n-opt="fc1">Corso Discovery</option>
+            <option data-i18n-opt="fc2">Corso Principianti</option>
+            <option data-i18n-opt="fc3">Corso Intermedio</option>
+            <option data-i18n-opt="fc4">Corso Avanzato</option>
+            <option data-i18n-opt="fc5">Corso Foil</option>
+            <option data-i18n-opt="fc6">Corso Freestyle</option>
+          </select>
+        </div>
+        <div class="fg"><label data-i18n="f-pa">Partecipanti</label>
+          <select id="fi-part">
+            <option data-i18n-opt="p1">1 persona</option>
+            <option data-i18n-opt="p2">2 persone</option>
+            <option data-i18n-opt="p3">3 persone</option>
+            <option data-i18n-opt="p4">4 persone</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label data-i18n="f-pe">Periodo</label><input type="text" id="fi-period" data-i18n-ph="f-peph" placeholder="es. Luglio 15–20"/></div>
+        <div class="fg"><label data-i18n="f-lv">Livello</label>
+          <select id="fi-level">
+            <option data-i18n-opt="lv1">Mai fatto kite</option>
+            <option data-i18n-opt="lv2">Ho fatto qualche lezione</option>
+            <option data-i18n-opt="lv3">So navigare in autonomia</option>
+            <option data-i18n-opt="lv4">Rider esperto</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow"><div class="fg ffull"><label data-i18n="f-no">Note</label>
+        <textarea id="fi-notes" data-i18n-ph="f-noph" placeholder="Obiettivi, domande, età..." rows="3" style="resize:vertical;"></textarea>
+      </div></div>
+      <button class="fsub" type="button" onclick="sendBooking()" data-i18n="f-sb">🪁 Invia Richiesta di Prenotazione</button>
+    </div>
+  </div>
+</section>
+
+<section class="igsec">
+  <div class="wrap">
+    <p class="sl reveal" data-i18n="ig-l">Seguici su Instagram</p>
+    <h2 class="st reveal" data-i18n-html="ig-t">VITA DA KITER<br/>SUL FEED</h2>
+    <div class="igg reveal">
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317330/WhatsApp_Image_2026-04-04_at_17.31.14_2_q0exvm.jpg');"></div>
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317320/WhatsApp_Image_2026-04-04_at_17.31.06_4_ycfqgd.jpg');"></div>
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317321/WhatsApp_Image_2026-04-04_at_17.31.07_ihozpl.jpg');"></div>
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317359/WhatsApp_Image_2026-04-04_at_17.35.09_fbq22w.jpg');"></div>
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317329/WhatsApp_Image_2026-04-04_at_17.31.14_1_mioqsb.jpg');"></div>
+      <div class="igt" style="background-image:url('https://res.cloudinary.com/drrqhltvz/image/upload/v1775317319/WhatsApp_Image_2026-04-04_at_17.31.06_2_iarx1s.jpg');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=300&q=80');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1476673160081-cf065607f449?auto=format&fit=crop&w=300&q=80');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=300&q=80');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1533756972958-d174ddc71ded?auto=format&fit=crop&w=300&q=80');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=300&q=80');"></div>
+      <div class="igt" style="background-image:url('https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=300&q=80');"></div>
+    </div>
+    <a class="igbtn" href="https://www.instagram.com/kiteschoolporto_pollo/" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <span data-i18n="ig-b">Seguici @kiteschoolporto_pollo</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo"><em>KITE</em> SCHOOL PORTO POLLO</div>
+  <p>Paco &amp; Virgi · Isola dei Gabbiani, Porto Pollo – Palau (OT)</p>
+  <div class="flinks">
+    <a href="#corsi" data-i18n="n-cor">Corsi</a>
+    <a href="#about" data-i18n="n-abo">Chi Siamo</a>
+    <a href="#dove" data-i18n="n-dov">Dove Siamo</a>
+    <a href="#recensioni" data-i18n="n-rec">Recensioni</a>
+    <a href="#prenota" data-i18n="n-cta">Prenota Ora</a>
+    <a href="https://www.instagram.com/kiteschoolporto_pollo/" target="_blank">Instagram</a>
+  </div>
+  <hr/><p style="font-size:.74rem;">© 2025 Kite School Porto Pollo – Paco &amp; Virgi. <span data-i18n="ft-r">Tutti i diritti riservati.</span></p>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const T={
+it:{
+'n-cor':'Corsi','n-abo':'Chi Siamo','n-dov':'Dove Siamo','n-rec':'Recensioni','n-cta':'Prenota Ora',
+'h-tit':'VOLA LIBERO<br/>CON IL <em>VENTO</em>','h-sub':'La scuola di kitesurf di Paco e Virgi a Porto Pollo. Corsi per tutti i livelli, istruttori certificati FIV/VDWS/IKO, attrezzatura Flysurfer inclusa.',
+'h-bc':'Scopri i Corsi','h-ba':'Chi Siamo','s-stu':'Allievi Formati','s-yrs':'Anni di Esperienza','s-rat':'Rating Clienti',
+'c-lbl':'I Nostri Corsi','c-tit':'SCEGLI LA TUA<br/>AVVENTURA','c-sub':'Dalla prima volta assoluta al freestyle avanzato. Istruttori certificati, attrezzatura Flysurfer e gommone inclusi.',
+'d1-pil':'Prima Volta','d1-nam':'Corso Discovery','d1-des':'Scopri se il kitesurf fa per te! In 3 ore sperimenterai le prime emozioni: teoria, kite a terra e prime manovre in acqua.','d1-m1':'⏱ 3 ore','d1-ps':'3 ore · €80 ora singola','d1-nt':'Età minima 9 anni compiuti · Corso individuale con istruttore privato',
+'d2-pil':'Più Scelto','d2-nam':'Corso Principianti','d2-des':'Il corso completo per partire da zero. 6 ore per imparare teoria, body drag e i primi water start in totale sicurezza.','d2-m1':'⏱ 6 ore','d2-ps':'6 ore · promo (anziché €420)','d2-nt':'Età minima 9 anni compiuti · €80 per ora singola aggiuntiva',
+'d3-nam':'Corso Intermedio','d3-des':'Sai già partire in autonomia? Perfeziona planata, cambi di direzione e impara a bolinare con tecnica reale.','d3-m1':'⏱ 2–6 ore','d3-m3':'🏄 Personalizzato','d3-pm':'da € 140','d3-ps':'€70/h · 2/4/6 ore disponibili','d3-nt':'Pacchetti: 2 ore €140 · 4 ore €280 · 6 ore €420',
+'d4-pil':'Pro Level','d4-nam':'Corso Avanzato','d4-des':'Salti, transizioni avanzate e navigazione in condizioni impegnative. Costruisci il tuo stile sotto la guida di Paco e Virgi.','d4-m3':'🎬 Coaching avanzato',
+'d5-pil':'Foil','d5-nam':'Corso Foil','d5-des':'Impara a volare sull\'acqua con il hydrofoil. Un\'esperienza unica per rider già autonomi che vogliono scoprire la nuova frontiera del kitesurf.','d5-m3':'🚀 Hydrofoil','d5-i3':'Tavola Foil','d5-nt':'Prerequisito: saper navigare in autonomia · Pacchetti: 2 ore €140 · 4 ore €280 · 6 ore €420',
+'d6-pil':'Freestyle','d6-nam':'Corso Freestyle','d6-des':'Salti, rotazioni e trick spettacolari. Il corso freestyle è pensato per rider esperti che vogliono portare il proprio kite al livello successivo.','d6-m3':'🎯 Trick & Jump','d6-nt':'Prerequisito: rider esperto · Pacchetti: 2 ore €140 · 4 ore €280 · 6 ore €420',
+'m-ind':'👤 Individuale','m-grp':'👤 1–4 persone',
+'b-det':'Dettagli','b-bk':'Prenota','x-inc':'✦ Incluso nel corso',
+'i1':'Istruttore privato','i2':'Trapezio','i3':'Tavola Flysurfer','i4':'Giubbotto salvagente','i5':'Barra + linee','i6':'Radio casco','i7':'Gommone assistenza',
+'a-lbl':'Chi Siamo','a-tit':'PASSIONE<br/>PURA','a-p1':'Siamo Paco e Virgi, e il kite è la nostra vita. Da oltre 25 anni insegniamo a volare sulle acque cristalline di Porto Pollo, uno degli spot più ventosi e magici d\'Italia.',
+'a-p2':'La nostra reception è direttamente alla kite zone, sulla spiaggia. Cerca le vele in cielo: ci trovi! Vieni a trovarci <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(qui)</a>.',
+'pk1t':'Certificati FIV/IKO','pk1p':'Standard internazionali','pk2t':'Vento Garantito','pk2p':'Miglior spot del Mediterraneo','pk3p':'Ultima generazione inclusa','pk4t':'Gommone Assistenza','pk4p':'Sempre in acqua con te',
+'e-lbl':'Perché Noi','e-tit':'L\'ESPERIENZA<br/>CHE FA LA DIFFERENZA','e1t':'Spot Perfetto','e1p':'Porto Pollo: acque piatte, vento costante, uno dei migliori spot kite del Mediterraneo.','e2t':'Meteo Live','e2p':'Clicca per le previsioni vento in tempo reale — powered by Windfinder.','e3t':'Radio Casco','e3p':'Comunicazione diretta istruttore–allievo per correzioni istantanee.','e4t':'Sicurezza Prima','e4p':'Protocolli FIV/IKO. Gommone sempre presente. Età minima 9 anni.',
+'bn-t':'IL VENTO NON ASPETTA','bn-p':'Ogni estate a Porto Pollo passa in un lampo. Prenota il tuo corso e vivi l\'estate della tua vita.','bn-b':'Prenota Adesso',
+'r-lbl':'Cosa Dicono di Noi','r-tit':'STORIE DI<br/>VOLO VERO','r1':'"Arrivata senza mai aver toccato un kite, ripartita dopo il corso principianti con il sorriso stampato. Trovare la tenda direttamente in spiaggia è comodissimo!"','r1r':'Milano · Principianti','r2':'"Il coaching con Virgi ha trasformato la mia tecnica. Radio casco, gommone vicino, istruttore sempre presente — professionalità eccezionale!"','r2r':'Roma · Avanzato','r3':'"Ho iniziato con il Discovery per curiosità e ho finito per fare il corso completo. Paco è un istruttore straordinario, ci tornerò l\'estate prossima!"','r3r':'Torino · Discovery → Principianti',
+'l-lbl':'Dove Trovarci','l-tit':'VIENI A<br/>TROVARCI','ci1t':'Kite Zone — Spiaggia','ci1s':'Reception alla kite zone','ci2t':'Chiamaci / WhatsApp','ci4t':'Stagione','ci4p':'Giugno – Settembre','rh-t':'✦ Come Raggiungerci','rh1':'Raggiungi <strong>Palau (OT)</strong> — in traghetto da Olbia o in auto dalla SS133.','rh2':'Segui le indicazioni per <strong>Porto Pollo</strong> / Barrabisa — circa 8 km da Palau.','rh3':'Parcheggia all\'<strong>Isola dei Gabbiani</strong> — la nostra tenda è alla kite zone.','rh-m':'Apri in Google Maps →',
+'bk-l':'Prenota Ora','bk-t':'INIZIA A VOLARE<br/>QUEST\'ESTATE','bk-s':'Compila il form e ti contatteremo entro 24h.',
+'f-nm':'Nome','f-nmph':'Il tuo nome','f-sn':'Cognome','f-snph':'Il tuo cognome','f-ph':'Telefono / WhatsApp','f-co':'Corso','f-pa':'Partecipanti','f-pe':'Periodo','f-peph':'es. Luglio 15–20','f-lv':'Livello','f-no':'Note','f-noph':'Obiettivi, domande, età...',
+'fc1':'Corso Discovery','fc2':'Corso Principianti','fc3':'Corso Intermedio','fc4':'Corso Avanzato','fc5':'Corso Foil','fc6':'Corso Freestyle',
+'p1':'1 persona','p2':'2 persone','p3':'3 persone','p4':'4 persone',
+'lv1':'Mai fatto kite','lv2':'Ho fatto qualche lezione','lv3':'So navigare in autonomia','lv4':'Rider esperto',
+'f-sb':'🪁 Invia Richiesta di Prenotazione','ig-l':'Seguici su Instagram','ig-t':'VITA DA KITER<br/>SUL FEED','ig-b':'Seguici @kiteschoolporto_pollo','ft-r':'Tutti i diritti riservati.'
+},
+en:{
+'n-cor':'Courses','n-abo':'About Us','n-dov':'Location','n-rec':'Reviews','n-cta':'Book Now',
+'h-tit':'FLY FREE<br/>WITH THE <em>WIND</em>','h-sub':'The kitesurf school of Paco and Virgi in Porto Pollo. Courses for all levels, FIV/VDWS/IKO certified instructors, Flysurfer equipment included.',
+'h-bc':'Discover Courses','h-ba':'About Us','s-stu':'Students Trained','s-yrs':'Years of Experience','s-rat':'Customer Rating',
+'c-lbl':'Our Courses','c-tit':'CHOOSE YOUR<br/>ADVENTURE','c-sub':'From the very first time to advanced freestyle. Certified instructors, Flysurfer equipment and support boat always included.',
+'d1-pil':'First Time','d1-nam':'Discovery Course','d1-des':'Discover if kitesurfing is for you! In 3 hours you\'ll experience your first thrills: theory, kite on land and first moves in water.','d1-m1':'⏱ 3 hours','d1-ps':'3 hours · €80 single hour','d1-nt':'Minimum age 9 years · Individual course with private instructor',
+'d2-pil':'Most Popular','d2-nam':'Beginners Course','d2-des':'The complete course for starting from scratch. 6 hours to learn theory, body drag and first water starts safely.','d2-m1':'⏱ 6 hours','d2-ps':'6 hours · promo (instead of €420)','d2-nt':'Minimum age 9 years · €80 per additional hour',
+'d3-nam':'Intermediate Course','d3-des':'Can you already ride? Perfect your planing, direction changes and learn to go upwind with real technique.','d3-m1':'⏱ 2–6 hours','d3-m3':'🏄 Personalised','d3-pm':'from € 140','d3-ps':'€70/h · 2/4/6 hours available','d3-nt':'Packages: 2h €140 · 4h €280 · 6h €420',
+'d4-pil':'Pro Level','d4-nam':'Advanced Course','d4-des':'Jumps, advanced transitions and riding in challenging conditions. Build your own style with Paco and Virgi.','d4-m3':'🎬 Advanced coaching',
+'d5-pil':'Foil','d5-nam':'Foil Course','d5-des':'Learn to fly above the water with hydrofoil. A unique experience for already autonomous riders ready for the next frontier of kitesurfing.','d5-m3':'🚀 Hydrofoil','d5-i3':'Foil Board','d5-nt':'Prerequisite: autonomous rider · Packages: 2h €140 · 4h €280 · 6h €420',
+'d6-pil':'Freestyle','d6-nam':'Freestyle Course','d6-des':'Jumps, rotations and spectacular tricks. The freestyle course is designed for expert riders who want to take their kite to the next level.','d6-m3':'🎯 Tricks & Jumps','d6-nt':'Prerequisite: expert rider · Packages: 2h €140 · 4h €280 · 6h €420',
+'m-ind':'👤 Individual','m-grp':'👤 1–4 people',
+'b-det':'Details','b-bk':'Book','x-inc':'✦ What\'s included',
+'i1':'Private instructor','i2':'Harness','i3':'Flysurfer Board','i4':'Life jacket','i5':'Bar + lines','i6':'Helmet radio','i7':'Support boat',
+'a-lbl':'About Us','a-tit':'PURE<br/>PASSION','a-p1':'We are Paco and Virgi, and kite is our life. For over 25 years we have been teaching to fly on the crystal-clear waters of Porto Pollo, one of the windiest and most magical spots in Italy.',
+'a-p2':'Our reception is directly at the kite zone, on the beach. Look for the kites in the sky and you\'ll find us! Come and find us <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(here)</a>.',
+'pk1t':'FIV/IKO Certified','pk1p':'International standards','pk2t':'Guaranteed Wind','pk2p':'Best spot in the Mediterranean','pk3p':'Latest generation included','pk4t':'Support Boat','pk4p':'Always in the water with you',
+'e-lbl':'Why Us','e-tit':'THE EXPERIENCE<br/>THAT MAKES THE DIFFERENCE','e1t':'Perfect Spot','e1p':'Porto Pollo: flat water, constant wind, one of the best kite spots in the Mediterranean.','e2t':'Live Weather','e2p':'Click for real-time wind forecasts — powered by Windfinder.','e3t':'Helmet Radio','e3p':'Direct instructor-student communication for instant corrections.','e4t':'Safety First','e4p':'FIV/IKO protocols. Support boat always present. Minimum age 9.',
+'bn-t':'THE WIND WON\'T WAIT','bn-p':'Every summer in Porto Pollo flies by. Book your course and live the summer of your life.','bn-b':'Book Now',
+'r-lbl':'What They Say','r-tit':'REAL<br/>FLIGHT STORIES','r1':'"I arrived never having touched a kite and left after the beginners course with a permanent smile. Having the tent directly on the beach is so convenient!"','r1r':'Milan · Beginners','r2':'"The coaching with Virgi completely transformed my technique. Helmet radio, boat nearby, instructor always present — exceptional professionalism!"','r2r':'Rome · Advanced','r3':'"I started with the Discovery and ended up doing the full course. Paco is an extraordinary instructor, I\'ll be back next summer!"','r3r':'Turin · Discovery → Beginners',
+'l-lbl':'Where to Find Us','l-tit':'COME AND<br/>FIND US','ci1t':'Kite Zone — Beach','ci1s':'Reception at the kite zone','ci2t':'Call Us / WhatsApp','ci4t':'Season','ci4p':'June – September','rh-t':'✦ How to Reach Us','rh1':'Reach <strong>Palau (OT)</strong> — by ferry from Olbia or by car via SS133.','rh2':'Follow signs for <strong>Porto Pollo</strong> / Barrabisa — about 8 km from Palau.','rh3':'Park at <strong>Isola dei Gabbiani</strong> — our tent is at the kite zone.','rh-m':'Open in Google Maps →',
+'bk-l':'Book Now','bk-t':'START FLYING<br/>THIS SUMMER','bk-s':'Fill the form and we\'ll contact you within 24h.',
+'f-nm':'First Name','f-nmph':'Your first name','f-sn':'Last Name','f-snph':'Your last name','f-ph':'Phone / WhatsApp','f-co':'Course','f-pa':'Participants','f-pe':'Period','f-peph':'e.g. July 15–20','f-lv':'Level','f-no':'Notes','f-noph':'Goals, questions, ages...',
+'fc1':'Discovery Course','fc2':'Beginners Course','fc3':'Intermediate Course','fc4':'Advanced Course','fc5':'Foil Course','fc6':'Freestyle Course',
+'p1':'1 person','p2':'2 people','p3':'3 people','p4':'4 people',
+'lv1':'Never done kite','lv2':'Had some lessons','lv3':'Can ride independently','lv4':'Expert rider',
+'f-sb':'🪁 Send Booking Request','ig-l':'Follow Us on Instagram','ig-t':'KITER LIFE<br/>ON THE FEED','ig-b':'Follow @kiteschoolporto_pollo','ft-r':'All rights reserved.'
+},
+de:{
+'n-cor':'Kurse','n-abo':'Über uns','n-dov':'Standort','n-rec':'Bewertungen','n-cta':'Jetzt buchen',
+'h-tit':'FLIEG FREI<br/>MIT DEM <em>WIND</em>','h-sub':'Die Kiteschule von Paco und Virgi in Porto Pollo. Kurse für alle Niveaus, FIV/VDWS/IKO Instruktoren, Flysurfer inklusive.',
+'h-bc':'Kurse entdecken','h-ba':'Über uns','s-stu':'Schüler ausgebildet','s-yrs':'Jahre Erfahrung','s-rat':'Kundenbewertung',
+'c-lbl':'Unsere Kurse','c-tit':'WÄHLE DEIN<br/>ABENTEUER','c-sub':'Vom ersten Mal bis zum Freestyle. Zertifizierte Instruktoren, Flysurfer und Beiboot inklusive.',
+'d1-pil':'Erste Mal','d1-nam':'Discovery-Kurs','d1-des':'Entdecke ob Kitesurfen für dich ist! In 3 Stunden: Theorie, Kite an Land und erste Manöver im Wasser.','d1-m1':'⏱ 3 Stunden','d1-ps':'3 Std. · €80 Einzelstunde','d1-nt':'Mindestalter 9 Jahre · Einzelkurs mit privatem Instruktor',
+'d2-pil':'Meistgewählt','d2-nam':'Anfängerkurs','d2-des':'Der vollständige Kurs von Null. 6 Stunden Theorie, Body Drag und erste Water Starts.','d2-m1':'⏱ 6 Stunden','d2-ps':'6 Std. · Promo (statt €420)','d2-nt':'Mindestalter 9 Jahre · €80 Extrastunde',
+'d3-nam':'Fortgeschrittenenkurs','d3-des':'Kannst du schon fahren? Perfektioniere Planing, Richtungswechsel und Luv fahren.','d3-m1':'⏱ 2–6 Stunden','d3-m3':'🏄 Individuell','d3-pm':'ab € 140','d3-ps':'€70/h · 2/4/6 Stunden verfügbar','d3-nt':'Pakete: 2 Std. €140 · 4 Std. €280 · 6 Std. €420',
+'d4-pil':'Pro Level','d4-nam':'Fortgeschrittener Kurs','d4-des':'Sprünge, Transitionen und schwierige Bedingungen. Entwickle deinen Stil mit Paco und Virgi.','d4-m3':'🎬 Coaching',
+'d5-pil':'Foil','d5-nam':'Foil-Kurs','d5-des':'Lerne über das Wasser zu fliegen mit dem Hydrofoil. Ein einzigartiges Erlebnis für autonome Rider.','d5-m3':'🚀 Hydrofoil','d5-i3':'Foil Board','d5-nt':'Voraussetzung: autonomes Fahren · Pakete: 2 Std. €140 · 4 Std. €280 · 6 Std. €420',
+'d6-pil':'Freestyle','d6-nam':'Freestyle-Kurs','d6-des':'Sprünge, Rotationen und spektakuläre Tricks. Für erfahrene Rider die ihr Kite auf das nächste Level bringen wollen.','d6-m3':'🎯 Tricks & Sprünge','d6-nt':'Voraussetzung: erfahrener Rider · Pakete: 2 Std. €140 · 4 Std. €280 · 6 Std. €420',
+'m-ind':'👤 Einzeln','m-grp':'👤 1–4 Personen',
+'b-det':'Details','b-bk':'Buchen','x-inc':'✦ Inklusive',
+'i1':'Privater Instruktor','i2':'Trapez','i3':'Flysurfer Board','i4':'Rettungsweste','i5':'Bar + Leinen','i6':'Helmradio','i7':'Beiboot',
+'a-lbl':'Über uns','a-tit':'PURE<br/>LEIDENSCHAFT','a-p1':'Wir sind Paco und Virgi und Kite ist unser Leben. Seit über 25 Jahren lehren wir das Fliegen auf dem kristallklaren Wasser von Porto Pollo.',
+'a-p2':'Unser Empfang ist direkt an der Kite-Zone am Strand. Suche die Kites am Himmel! Komm zu uns <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(hier)</a>.',
+'pk1t':'FIV/IKO Zertifiziert','pk1p':'Internationale Standards','pk2t':'Garantierter Wind','pk2p':'Bester Spot im Mittelmeer','pk3p':'Neueste Generation inklusive','pk4t':'Beiboot','pk4p':'Immer im Wasser mit dir',
+'e-lbl':'Warum wir','e-tit':'DIE ERFAHRUNG<br/>DIE DEN UNTERSCHIED MACHT','e1t':'Perfekter Spot','e1p':'Porto Pollo: flaches Wasser, konstanter Wind, einer der besten Kite-Spots im Mittelmeer.','e2t':'Live Wetter','e2p':'Klicke für Echtzeit-Windvorhersagen — powered by Windfinder.','e3t':'Helmradio','e3p':'Direkte Kommunikation Instruktor–Schüler für sofortige Korrekturen.','e4t':'Sicherheit zuerst','e4p':'FIV/IKO Protokolle. Beiboot immer präsent. Mindestalter 9 Jahre.',
+'bn-t':'DER WIND WARTET NICHT','bn-p':'Jeder Sommer in Porto Pollo vergeht wie im Flug. Buche deinen Kurs.','bn-b':'Jetzt buchen',
+'r-lbl':'Was sie sagen','r-tit':'ECHTE<br/>FLUGERLEBNISSE','r1':'"Ohne Erfahrung angekommen, mit breitem Lächeln abgereist. Das Zelt direkt am Strand ist super praktisch!"','r1r':'Mailand · Anfänger','r2':'"Virgis Coaching hat meine Technik vollständig verändert. Helmradio, Boot in der Nähe — außergewöhnlich!"','r2r':'Rom · Fortgeschritten','r3':'"Mit dem Discovery angefangen und den Vollkurs gemacht. Paco ist außergewöhnlich, ich komme wieder!"','r3r':'Turin · Discovery → Anfänger',
+'l-lbl':'Wo wir sind','l-tit':'KOMM UNS<br/>BESUCHEN','ci1t':'Kite Zone — Strand','ci1s':'Empfang an der Kite-Zone','ci2t':'Ruf uns an / WhatsApp','ci4t':'Saison','ci4p':'Juni – September','rh-t':'✦ Wie Sie uns erreichen','rh1':'Erreiche <strong>Palau (OT)</strong> — per Fähre von Olbia oder Auto via SS133.','rh2':'Folge Schildern nach <strong>Porto Pollo</strong> / Barrabisa — etwa 8 km von Palau.','rh3':'Parke bei <strong>Isola dei Gabbiani</strong> — unser Zelt ist an der Kite Zone.','rh-m':'In Google Maps öffnen →',
+'bk-l':'Jetzt buchen','bk-t':'FANG AN ZU FLIEGEN<br/>DIESEN SOMMER','bk-s':'Fülle das Formular aus und wir melden uns innerhalb 24h.',
+'f-nm':'Vorname','f-nmph':'Dein Vorname','f-sn':'Nachname','f-snph':'Dein Nachname','f-ph':'Telefon / WhatsApp','f-co':'Kurs','f-pa':'Teilnehmer','f-pe':'Zeitraum','f-peph':'z.B. Juli 15–20','f-lv':'Niveau','f-no':'Anmerkungen','f-noph':'Ziele, Fragen, Alter...',
+'fc1':'Discovery-Kurs','fc2':'Anfängerkurs','fc3':'Fortgeschrittenenkurs','fc4':'Fortgeschrittener Kurs','fc5':'Foil-Kurs','fc6':'Freestyle-Kurs',
+'p1':'1 Person','p2':'2 Personen','p3':'3 Personen','p4':'4 Personen',
+'lv1':'Noch nie Kite','lv2':'Hatte einige Stunden','lv3':'Kann selbstständig fahren','lv4':'Erfahrener Fahrer',
+'f-sb':'🪁 Buchungsanfrage senden','ig-l':'Folge uns auf Instagram','ig-t':'KITER LEBEN<br/>IM FEED','ig-b':'Folge @kiteschoolporto_pollo','ft-r':'Alle Rechte vorbehalten.'
+},
+fr:{
+'n-cor':'Cours','n-abo':'À propos','n-dov':'Localisation','n-rec':'Avis','n-cta':'Réserver',
+'h-tit':'VOLEZ LIBRE<br/>AVEC LE <em>VENT</em>','h-sub':'L\'école de kitesurf de Paco et Virgi à Porto Pollo. Cours pour tous les niveaux, instructeurs certifiés FIV/VDWS/IKO, matériel Flysurfer inclus.',
+'h-bc':'Découvrir les cours','h-ba':'À propos','s-stu':'Élèves Formés','s-yrs':'Ans d\'Expérience','s-rat':'Note Clients',
+'c-lbl':'Nos Cours','c-tit':'CHOISISSEZ VOTRE<br/>AVENTURE','c-sub':'De la première fois au freestyle avancé. Instructeurs certifiés, matériel Flysurfer et bateau inclus.',
+'d1-pil':'Première Fois','d1-nam':'Cours Discovery','d1-des':'Découvrez si le kitesurf est pour vous ! En 3 heures : théorie, kite à terre et premières manœuvres.','d1-m1':'⏱ 3 heures','d1-ps':'3 h · €80 heure individuelle','d1-nt':'Âge minimum 9 ans · Cours individuel avec instructeur privé',
+'d2-pil':'Le Plus Choisi','d2-nam':'Cours Débutants','d2-des':'Le cours complet de zéro. 6 heures de théorie, body drag et premiers water starts.','d2-m1':'⏱ 6 heures','d2-ps':'6 h · promo (au lieu de €420)','d2-nt':'Âge minimum 9 ans · €80 heure supplémentaire',
+'d3-nam':'Cours Intermédiaire','d3-des':'Vous savez déjà partir ? Perfectionnez le planning et apprenez à monter au vent.','d3-m1':'⏱ 2–6 heures','d3-m3':'🏄 Personnalisé','d3-pm':'dès € 140','d3-ps':'€70/h · 2/4/6 heures disponibles','d3-nt':'Forfaits : 2 h €140 · 4 h €280 · 6 h €420',
+'d4-pil':'Pro Level','d4-nam':'Cours Avancé','d4-des':'Sauts, transitions et conditions difficiles. Construisez votre style avec Paco et Virgi.','d4-m3':'🎬 Coaching avancé',
+'d5-pil':'Foil','d5-nam':'Cours Foil','d5-des':'Apprenez à voler au-dessus de l\'eau avec le hydrofoil. Une expérience unique pour les riders autonomes.','d5-m3':'🚀 Hydrofoil','d5-i3':'Planche Foil','d5-nt':'Prérequis : navigation autonome · Forfaits : 2 h €140 · 4 h €280 · 6 h €420',
+'d6-pil':'Freestyle','d6-nam':'Cours Freestyle','d6-des':'Sauts, rotations et tricks spectaculaires. Pour les riders experts qui veulent passer au niveau supérieur.','d6-m3':'🎯 Tricks & Sauts','d6-nt':'Prérequis : rider expert · Forfaits : 2 h €140 · 4 h €280 · 6 h €420',
+'m-ind':'👤 Individuel','m-grp':'👤 1–4 personnes',
+'b-det':'Détails','b-bk':'Réserver','x-inc':'✦ Inclus dans le cours',
+'i1':'Instructeur privé','i2':'Harnais','i3':'Planche Flysurfer','i4':'Gilet de sauvetage','i5':'Barre + lignes','i6':'Radio casque','i7':'Bateau d\'assistance',
+'a-lbl':'À propos','a-tit':'PASSION<br/>PURE','a-p1':'Nous sommes Paco et Virgi et le kite est notre vie. Depuis plus de 25 ans nous enseignons à voler sur les eaux cristallines de Porto Pollo.',
+'a-p2':'Notre accueil est directement à la zone kite, sur la plage. Cherchez les kites dans le ciel ! Venez nous trouver <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(ici)</a>.',
+'pk1t':'Certifiés FIV/IKO','pk1p':'Normes internationales','pk2t':'Vent Garanti','pk2p':'Meilleur spot de Méditerranée','pk3p':'Dernière génération inclus','pk4t':'Bateau d\'Assistance','pk4p':'Toujours dans l\'eau avec vous',
+'e-lbl':'Pourquoi nous','e-tit':'L\'EXPÉRIENCE<br/>QUI FAIT LA DIFFÉRENCE','e1t':'Spot Parfait','e1p':'Porto Pollo : eau plate, vent constant, l\'un des meilleurs spots kite de Méditerranée.','e2t':'Météo en Direct','e2p':'Cliquez pour les prévisions vent en temps réel — powered by Windfinder.','e3t':'Radio Casque','e3p':'Communication directe instructeur–élève pour corrections instantanées.','e4t':'Sécurité d\'Abord','e4p':'Protocoles FIV/IKO. Bateau toujours présent. Âge minimum 9 ans.',
+'bn-t':'LE VENT N\'ATTEND PAS','bn-p':'Chaque été à Porto Pollo passe en un clin d\'œil. Réservez votre cours.','bn-b':'Réserver maintenant',
+'r-lbl':'Ce qu\'ils disent','r-tit':'HISTOIRES DE<br/>VOL RÉEL','r1':'"Arrivée sans expérience, repartie avec le sourire. Tente directement sur la plage, super pratique !"','r1r':'Milan · Débutants','r2':'"Le coaching de Virgi a transformé ma technique. Radio casque, bateau proche — exceptionnel !"','r2r':'Rome · Avancé','r3':'"J\'ai commencé avec le Discovery et fait le cours complet. Paco est extraordinaire !"','r3r':'Turin · Discovery → Débutants',
+'l-lbl':'Où nous trouver','l-tit':'VENEZ NOUS<br/>TROUVER','ci1t':'Zone Kite — Plage','ci1s':'Accueil à la zone kite','ci2t':'Appelez-nous / WhatsApp','ci4t':'Saison','ci4p':'Juin – Septembre','rh-t':'✦ Comment nous rejoindre','rh1':'Rejoignez <strong>Palau (OT)</strong> — en ferry depuis Olbia ou en voiture via SS133.','rh2':'Suivez les indications vers <strong>Porto Pollo</strong> / Barrabisa — environ 8 km de Palau.','rh3':'Garez-vous à <strong>Isola dei Gabbiani</strong> — notre tente est à la zone kite.','rh-m':'Ouvrir dans Google Maps →',
+'bk-l':'Réserver Maintenant','bk-t':'COMMENCEZ À VOLER<br/>CET ÉTÉ','bk-s':'Remplissez le formulaire et nous vous contacterons sous 24h.',
+'f-nm':'Prénom','f-nmph':'Votre prénom','f-sn':'Nom','f-snph':'Votre nom','f-ph':'Téléphone / WhatsApp','f-co':'Cours','f-pa':'Participants','f-pe':'Période','f-peph':'ex. Juillet 15–20','f-lv':'Niveau','f-no':'Notes','f-noph':'Objectifs, questions, âges...',
+'fc1':'Cours Discovery','fc2':'Cours Débutants','fc3':'Cours Intermédiaire','fc4':'Cours Avancé','fc5':'Cours Foil','fc6':'Cours Freestyle',
+'p1':'1 personne','p2':'2 personnes','p3':'3 personnes','p4':'4 personnes',
+'lv1':'Jamais fait de kite','lv2':'Quelques cours','lv3':'Navigation autonome','lv4':'Rider expert',
+'f-sb':'🪁 Envoyer la demande','ig-l':'Suivez-nous sur Instagram','ig-t':'VIE DE KITER<br/>SUR LE FEED','ig-b':'Suivez @kiteschoolporto_pollo','ft-r':'Tous droits réservés.'
+},
+es:{
+'n-cor':'Cursos','n-abo':'Quiénes somos','n-dov':'Ubicación','n-rec':'Reseñas','n-cta':'Reservar',
+'h-tit':'VUELA LIBRE<br/>CON EL <em>VIENTO</em>','h-sub':'La escuela de kitesurf de Paco y Virgi en Porto Pollo. Cursos para todos los niveles, instructores certificados FIV/VDWS/IKO, material Flysurfer incluido.',
+'h-bc':'Descubrir cursos','h-ba':'Quiénes somos','s-stu':'Alumnos Formados','s-yrs':'Años de Experiencia','s-rat':'Valoración Clientes',
+'c-lbl':'Nuestros Cursos','c-tit':'ELIGE TU<br/>AVENTURA','c-sub':'Desde la primera vez hasta el freestyle avanzado. Instructores certificados, material Flysurfer y lancha incluidos.',
+'d1-pil':'Primera Vez','d1-nam':'Curso Discovery','d1-des':'¡Descubre si el kitesurf es para ti! En 3 horas: teoría, kite en tierra y primeras maniobras.','d1-m1':'⏱ 3 horas','d1-ps':'3 h · €80 hora individual','d1-nt':'Edad mínima 9 años · Curso individual con instructor privado',
+'d2-pil':'Más Elegido','d2-nam':'Curso Principiantes','d2-des':'El curso completo desde cero. 6 horas de teoría, body drag y primeros water starts.','d2-m1':'⏱ 6 horas','d2-ps':'6 h · promo (en lugar de €420)','d2-nt':'Edad mínima 9 años · €80 hora adicional',
+'d3-nam':'Curso Intermedio','d3-des':'¿Ya puedes salir? Perfecciona el planeo, cambios de dirección y aprende a barloventear.','d3-m1':'⏱ 2–6 horas','d3-m3':'🏄 Personalizado','d3-pm':'desde € 140','d3-ps':'€70/h · 2/4/6 horas disponibles','d3-nt':'Paquetes: 2h €140 · 4h €280 · 6h €420',
+'d4-pil':'Pro Level','d4-nam':'Curso Avanzado','d4-des':'Saltos, transiciones y condiciones exigentes. Construye tu estilo con Paco y Virgi.','d4-m3':'🎬 Coaching avanzado',
+'d5-pil':'Foil','d5-nam':'Curso Foil','d5-des':'Aprende a volar sobre el agua con el hydrofoil. Una experiencia única para riders autónomos listos para la próxima frontera.','d5-m3':'🚀 Hydrofoil','d5-i3':'Tabla Foil','d5-nt':'Requisito: navegación autónoma · Paquetes: 2h €140 · 4h €280 · 6h €420',
+'d6-pil':'Freestyle','d6-nam':'Curso Freestyle','d6-des':'Saltos, rotaciones y tricks espectaculares. Para riders expertos que quieren llevar su kite al siguiente nivel.','d6-m3':'🎯 Tricks & Saltos','d6-nt':'Requisito: rider experto · Paquetes: 2h €140 · 4h €280 · 6h €420',
+'m-ind':'👤 Individual','m-grp':'👤 1–4 personas',
+'b-det':'Detalles','b-bk':'Reservar','x-inc':'✦ Incluido en el curso',
+'i1':'Instructor privado','i2':'Arnés','i3':'Tabla Flysurfer','i4':'Chaleco salvavidas','i5':'Barra + líneas','i6':'Radio casco','i7':'Lancha de asistencia',
+'a-lbl':'Quiénes somos','a-tit':'PASIÓN<br/>PURA','a-p1':'Somos Paco y Virgi y el kite es nuestra vida. Durante más de 25 años hemos enseñado a volar sobre las aguas cristalinas de Porto Pollo.',
+'a-p2':'Nuestra recepción está directamente en la zona kite, en la playa. ¡Busca las cometas en el cielo! Ven a encontrarnos <a href="#dove" style="color:var(--cyan2);font-weight:600;text-decoration:underline;">(aquí)</a>.',
+'pk1t':'Certificados FIV/IKO','pk1p':'Estándares internacionales','pk2t':'Viento Garantizado','pk2p':'Mejor spot del Mediterráneo','pk3p':'Última generación incluida','pk4t':'Lancha de Asistencia','pk4p':'Siempre en el agua contigo',
+'e-lbl':'Por qué nosotros','e-tit':'LA EXPERIENCIA<br/>QUE MARCA LA DIFERENCIA','e1t':'Spot Perfecto','e1p':'Porto Pollo: aguas planas, viento constante, uno de los mejores spots kite del Mediterráneo.','e2t':'Tiempo en Directo','e2p':'Haz clic para previsiones de viento en tiempo real — powered by Windfinder.','e3t':'Radio Casco','e3p':'Comunicación directa instructor–alumno para correcciones instantáneas.','e4t':'Seguridad Primero','e4p':'Protocolos FIV/IKO. Lancha siempre presente. Edad mínima 9 años.',
+'bn-t':'EL VIENTO NO ESPERA','bn-p':'Cada verano en Porto Pollo pasa volando. Reserva tu curso y vive el verano de tu vida.','bn-b':'Reservar ahora',
+'r-lbl':'Lo que dicen','r-tit':'HISTORIAS DE<br/>VUELO REAL','r1':'"Llegué sin experiencia y me fui con una sonrisa imborrable. ¡Tienda directamente en la playa, comodísimo!"','r1r':'Milán · Principiantes','r2':'"El coaching de Virgi transformó mi técnica. Radio casco, lancha cerca — ¡excepcional!"','r2r':'Roma · Avanzado','r3':'"Empecé con el Discovery y acabé haciendo el curso completo. ¡Paco es extraordinario!"','r3r':'Turín · Discovery → Principiantes',
+'l-lbl':'Dónde encontrarnos','l-tit':'VEN A<br/>ENCONTRARNOS','ci1t':'Zona Kite — Playa','ci1s':'Recepción en la zona kite','ci2t':'Llámanos / WhatsApp','ci4t':'Temporada','ci4p':'Junio – Septiembre','rh-t':'✦ Cómo llegar','rh1':'Llega a <strong>Palau (OT)</strong> — en ferry desde Olbia o en coche por SS133.','rh2':'Sigue las indicaciones a <strong>Porto Pollo</strong> / Barrabisa — unos 8 km de Palau.','rh3':'Aparca en <strong>Isola dei Gabbiani</strong> — nuestra tienda está en la zona kite.','rh-m':'Abrir en Google Maps →',
+'bk-l':'Reservar Ahora','bk-t':'EMPIEZA A VOLAR<br/>ESTE VERANO','bk-s':'Rellena el formulario y te contactaremos en 24h.',
+'f-nm':'Nombre','f-nmph':'Tu nombre','f-sn':'Apellido','f-snph':'Tu apellido','f-ph':'Teléfono / WhatsApp','f-co':'Curso','f-pa':'Participantes','f-pe':'Período','f-peph':'ej. Julio 15–20','f-lv':'Nivel','f-no':'Notas','f-noph':'Objetivos, preguntas, edades...',
+'fc1':'Curso Discovery','fc2':'Curso Principiantes','fc3':'Curso Intermedio','fc4':'Curso Avanzado','fc5':'Curso Foil','fc6':'Curso Freestyle',
+'p1':'1 persona','p2':'2 personas','p3':'3 personas','p4':'4 personas',
+'lv1':'Nunca he hecho kite','lv2':'He tenido algunas clases','lv3':'Navegación autónoma','lv4':'Rider experto',
+'f-sb':'🪁 Enviar solicitud de reserva','ig-l':'Síguenos en Instagram','ig-t':'VIDA DE KITER<br/>EN EL FEED','ig-b':'Síguenos @kiteschoolporto_pollo','ft-r':'Todos los derechos reservados.'
+}
+};
+
+let L='it';
+function setLang(l){
+  L=l; const t=T[l];
+  document.documentElement.lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(t[k]!==undefined)el.textContent=t[k];});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.dataset.i18nHtml;if(t[k]!==undefined)el.innerHTML=t[k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(t[k]!==undefined)el.placeholder=t[k];});
+  document.querySelectorAll('[data-i18n-opt]').forEach(el=>{const k=el.dataset.i18nOpt;if(t[k]!==undefined)el.textContent=t[k];});
+  ['it','en','de','fr','es'].forEach(c=>{['lb-','mlb-'].forEach(p=>{const b=document.getElementById(p+c);if(b)b.classList.toggle('on',c===l);});});
+}
+
+function det(id,btn){
+  const panel=document.getElementById('det-'+id);if(!panel)return;
+  const open=panel.classList.contains('open');
+  document.querySelectorAll('.cdet').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.bdet').forEach(b=>{b.classList.remove('on');b.innerHTML=b.innerHTML.replace('▴','▾');});
+  if(!open){
+    panel.classList.add('open');btn.classList.add('on');
+    btn.innerHTML=btn.innerHTML.replace('▾','▴');
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),150);
+  }
+}
+
+function sendBooking(){
+  const g=id=>{const el=document.getElementById(id);if(!el)return'';if(el.tagName==='SELECT')return el.options[el.selectedIndex]?.text||'';return el.value||'';};
+  const msg=
+    `🪁 *Nuova Richiesta di Prenotazione*\n`+
+    `Kite School Porto Pollo – Paco & Virgi\n`+
+    `─────────────────────\n`+
+    `👤 *Nome:* ${g('fi-name')} ${g('fi-surn')}\n`+
+    `📧 *Email:* ${g('fi-email')}\n`+
+    `📱 *Telefono:* ${g('fi-phone')}\n\n`+
+    `🪁 *Corso:* ${g('fi-course')}\n`+
+    `👥 *Partecipanti:* ${g('fi-part')}\n`+
+    `📅 *Periodo:* ${g('fi-period')}\n`+
+    `🏄 *Livello:* ${g('fi-level')}\n\n`+
+    `📝 *Note:* ${g('fi-notes')||'–'}`;
+  window.open('https://wa.me/393382460327?text='+encodeURIComponent(msg),'_blank');
+}
+
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+function toggleNav(){document.getElementById('mob').classList.toggle('open');}
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.05});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
